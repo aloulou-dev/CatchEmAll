@@ -26,7 +26,20 @@ class CreatureDetail{
     }
     
     struct Sprite: Codable{
-        var front_default: String
+        var other: Other
+    }
+    
+    struct Other: Codable{
+        var officialArtwork : OfficialArtWork
+        
+        enum CodingKeys: String, CodingKey {
+            case officialArtwork = "official-artwork"
+        }
+    }
+    
+    
+    struct OfficialArtWork: Codable{
+        var front_default: String?
     }
     
     
@@ -58,7 +71,7 @@ class CreatureDetail{
             }
             self.height = returned.height
             self.weight = returned.weight
-            self.imageUrl = returned.sprites.front_default
+            self.imageUrl = returned.sprites.other.officialArtwork.front_default ?? "n/a" 
     
         } catch {
             print("Error: Could not get data from \(urlString)")
